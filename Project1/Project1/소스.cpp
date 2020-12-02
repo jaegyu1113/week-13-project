@@ -1,34 +1,48 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-template <class T1, class T2>
-bool equalArrays(T1 t1[], T2 t2[], int n) {
-	for (int i = 0; i < n; i++) {
-		if (t1[i] != t2[i])
-			return false;
+class Person {
+	string name;
+	int age;
+public:
+	int getage() { return age; }
+	string getname() { return name; }
+	Person(string name, int age) {
+		this->name = name;
+		this->age = age;
 	}
-	return true;
-}
-
-template<class T>
-void reverseArray(T t1[], int n) {
-	for (int i = 0; i < n / 2; i++) {
-		T tmp;
-		tmp = t1[i];
-		t1[i] = t1[n - i - 1];
-		t1[n - i - 1] = tmp;
-	}
-}
-int main() {
-	int x[] = { 1, 10, 100, 5, 4 };
-	int y[] = { 1, 10, 100, 5, 4 };
-	if (equalArrays(x, y, 5))
-		cout << "같다" << endl;
+};
+bool cmpAge(const int& a, const int& b) {
+	if (a > b)
+		return true;
 	else
-		cout << "다르다" << endl;
+		return false;
+}
 
-	reverseArray(x, 5);
-	for (int i = 0; i < 5; i++)
-		cout << x[i] << ' ';
+bool cmpName(const string& a, const string& b) {
+	if (a > b)
+		return true;
+	else
+		return false;
+}
 
+int main() {
+
+	vector<Person> v;
+	v.push_back(Person("John", 33));
+	v.push_back(Person("Kenin", 40));
+	v.push_back(Person("Daniel", 15));
+	v.push_back(Person("Snow", 20));
+
+	sort(v.begin(), v.end(), cmpAge);
+	for (int i = 0; i < 3; i++) {
+		cout << v[i].getname() << v[i].getage() << endl;
+	}
+	sort(v.begin(), v.end(), cmpName);
+	for (int i = 0; i < 3; i++) {
+		cout << v[i].getname() << v[i].getage() << endl;
+	}
 }
